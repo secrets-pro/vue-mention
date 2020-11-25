@@ -1,0 +1,46 @@
+@prefix: mention;
+.@{prefix}-panel {
+  position: relative;
+}
+.@{prefix}-editor {
+  width: 100%;
+  resize: none;
+  padding: 8px;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #aaa;
+  transition: all 0.3s;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+.@{prefix}-open {
+  position: absolute;
+  z-index: 99;
+}
+
+.@{prefix}-list {
+  position: absolute;
+  top: 1.5em;
+  background: #fff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  overflow: auto;
+  max-height: 200px;
+  &.@{prefix}-top {
+    top: auto;
+    bottom: 0.2em;
+  }
+  &.@{prefix}-left,
+  &.@{prefix}-right {
+    left: 0;
+  }
+  &-item {
+    line-height: 30px;
+    padding: 0 10px;
+    font-size: 13px;
+    .sel {
+      cursor: pointer;
+      background: rgb(2, 117, 216);
+      color: #fff;
+    }
+  }
+}
