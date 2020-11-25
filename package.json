@@ -1,7 +1,12 @@
 {
   "name": "@secrets/vue-mention",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "vue-mention",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/secrets-pro/vue-mention.git"
+  },
+  "homepage": "https://github.com/secrets-pro/vue-mention",
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build --target lib --name vue-mention ./src/index.js --inline-vue",
@@ -9,6 +14,7 @@
     "release": "npm publish --access public --registry  https://registry.npmjs.org/"
 
   },
+  "license": "MIT",
   "main": "dist/vue-mention.common.min.js",
   "module": "dist/vue-mention.common.min.js",
   "unpkg": "dist/vue-mention.common.min.js",
