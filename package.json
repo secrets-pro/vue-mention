@@ -11,7 +11,7 @@
     "serve": "vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build --target lib --name vue-mention ./src/index.js --inline-vue",
     "lint": "vue-cli-service lint",
-    "release": "npm publish --access public --registry  https://registry.npmjs.org/ --tag=alpha"
+    "release": "npm publish --access public --registry  https://registry.npmjs.org/"
   },
   "license": "MIT",
   "main": "dist/vue-mention.common.min.js",
