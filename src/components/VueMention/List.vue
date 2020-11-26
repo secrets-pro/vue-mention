@@ -4,21 +4,23 @@
     :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
   >
     <div :class="calc()" :style="{ width: listWidth + 'px' }">
-      <div
-        v-for="(item, i) in currentList"
-        @mousedown="handleMD($event, i)"
-        @mouseenter="now = i"
-        :key="i"
-        :class="{ [`${prefix}-list-item`]: true, sel: i == now }"
-      >
-        <slot name="item" :item="item">{{ item }}</slot>
-      </div>
-      <div
-        :class="`${prefix}-list-item`"
-        v-show="currentList.length == 0"
-        style="text-align: center; color: #aaa"
-      >
-        <div>无匹配项</div>
+      <div :class="`${prefix}-containers`">
+        <div
+          v-for="(item, i) in currentList"
+          @mousedown="handleMD($event, i)"
+          @mouseenter="now = i"
+          :key="i"
+          :class="{ [`${prefix}-list-item`]: true, sel: i == now }"
+        >
+          {{ text(item) }}
+        </div>
+        <div
+          :class="`${prefix}-list-item`"
+          v-show="currentList.length == 0"
+          style="text-align: center; color: #aaa"
+        >
+          <div>无匹配项</div>
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +69,9 @@ export default {
     }
   },
   methods: {
+    text(item) {
+      return this.getValue(item);
+    },
     key(type) {
       if (type == "ArrowDown") this.now = ++this.now % this.currentList.length;
       if (type == "ArrowUp")
@@ -77,7 +82,7 @@ export default {
       });
     },
     sel() {
-      this.$emit("on-select", this.getValue(this.currentList[this.now]));
+      this.$emit("on-select", this.currentList[this.now]);
     },
     handleMD(e, i) {
       this.now = i;

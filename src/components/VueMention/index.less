@@ -1,20 +1,41 @@
 @prefix: mention;
+@primary-color: #57a3f3;
+@hover-color: #f3f3f3;
 .@{prefix}-panel {
   position: relative;
 }
 .@{prefix}-editor {
   width: 100%;
   resize: none;
-  padding: 8px;
   outline: none;
-  border-radius: 3px;
-  border: 1px solid #aaa;
-  transition: all 0.3s;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  display: inline-block;
+  line-height: 1.5;
+  padding: 4px 7px;
+  font-size: 14px;
+  border: 1px solid #dcdee2;
+  border-radius: 4px;
+  color: #515a6e;
+  background-color: #fff;
+  background-image: none;
+  position: relative;
+  cursor: text;
+  transition: border 0.2s ease-in-out, background 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  &:focus,
+  &:hover {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(45, 140, 240, 0.2);
+    border-color: @primary-color;
+  }
 }
 .@{prefix}-open {
   position: absolute;
   z-index: 99;
+}
+
+.@{prefix}-containers {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .@{prefix}-list {
@@ -37,10 +58,11 @@
     line-height: 30px;
     padding: 0 10px;
     font-size: 13px;
-    .sel {
-      cursor: pointer;
-      background: rgb(2, 117, 216);
-      color: #fff;
+    transition: all 0.1s ease-in;
+    color: #515a6e;
+    cursor: pointer;
+    &.sel {
+      background: @hover-color;
     }
   }
 }

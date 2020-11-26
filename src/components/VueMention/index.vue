@@ -11,7 +11,6 @@
       @blur="showFlag = false"
       v-bind="options"
     ></textarea>
-
     <partList
       v-show="showFlag"
       ref="list"
@@ -87,7 +86,6 @@ export default {
   methods: {
     // 获取item的value
     getValue(item) {
-      console.log(item, this.valueKey);
       return this.valueKey ? item[this.valueKey] : item;
     },
 
@@ -117,7 +115,7 @@ export default {
     // 计算列表位置
     calcPos() {
       let pos = getCaretCoordinates(this.el, this.el.selectionEnd);
-      pos.top -= this.el.scrollTop;
+      pos.top -= this.el.scrollTop - 10;
       this.pos = pos;
     },
     keyup() {
@@ -135,7 +133,8 @@ export default {
     },
 
     // 选中列表
-    sel(text) {
+    sel(item) {
+      let text = this.getValue(item);
       this.showFlag = false;
 
       if (!text) return;

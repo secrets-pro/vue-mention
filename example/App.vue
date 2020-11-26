@@ -6,12 +6,10 @@
     <vue-mention
       v-model="text"
       :list="members2"
-      value-key="val"
+      value-key="text"
+      custom-char="#"
       :options="config"
     >
-      <template slot="item" slot-scope="props">
-        <b>{{ props.item.val }}</b>
-      </template>
     </vue-mention>
     <h3>内容</h3>
     <div style="white-space: pre">{{ text }}</div>
@@ -30,15 +28,15 @@ export default {
       members2: [
         {
           key: "key1",
-          val: "Cyber Fei"
+          text: "Cyber Fei"
         },
         {
           key: "key2",
-          val: "mxsg.com"
+          text: "mxsg.com"
         },
         {
           key: "key3",
-          val: "小明"
+          text: "小明"
         }
       ],
       config: {
