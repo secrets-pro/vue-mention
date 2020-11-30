@@ -14,9 +14,9 @@
     "release": "npm publish --access public --registry  https://registry.npmjs.org/"
   },
   "license": "MIT",
-  "main": "dist/vue-mention.common.min.js",
-  "module": "dist/vue-mention.common.min.js",
-  "unpkg": "dist/vue-mention.common.min.js",
+  "main": "dist/vue-mention.common.js",
+  "module": "dist/vue-mention.common.js",
+  "unpkg": "dist/vue-mention.common.js",
   "dependencies": {
     "vue": "^2.6.12"
   },
@@ -25,7 +25,7 @@
     "mention"
   ],
   "devDependencies": {
-    "@secrets/vue-menu": "^0.0.5",
+    "@secrets/vue-menu": "^0.0.6",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^4.5.9",
     "@vue/cli-service": "^3.7.0",
