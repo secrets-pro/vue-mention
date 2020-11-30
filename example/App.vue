@@ -1,13 +1,13 @@
 <template>
   <div id="app" style="padding: 15px">
     <h3>简单使用</h3>
-    <vue-mention v-model="text" :list="members1"></vue-mention>
+    <!-- <vue-mention v-model="text" :list="members1"></vue-mention> -->
     <h3>自定义插槽</h3>
     <vue-mention
       v-model="text"
-      :list="members2"
+      :list="menu"
       value-key="text"
-      custom-char="#"
+      custom-char="@"
       :options="config"
     >
     </vue-mention>
@@ -16,7 +16,7 @@
     {{ value }}
     {{ label }}
     <div>
-      <vue-menu :menu="menu" v-model="value" :label.sync="label"></vue-menu>
+      <!-- <vue-menu :menu="menu" v-model="value" :label.sync="label"></vue-menu> -->
     </div>
   </div>
 </template>
@@ -90,16 +90,16 @@ export default {
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
-          key: "key1",
-          text: "Cyber Fei"
+          name: "key1",
+          title: "Cyber Fei"
         },
         {
-          key: "key2",
-          text: "mxsg.com"
+          name: "key2",
+          title: "mxsg.com"
         },
         {
-          key: "key3",
-          text: "小明"
+          name: "key3",
+          title: "小明"
         }
       ],
       config: {

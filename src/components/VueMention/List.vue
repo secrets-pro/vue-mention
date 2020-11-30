@@ -5,7 +5,7 @@
   >
     <div :class="calc()" :style="{ width: listWidth + 'px' }">
       <div :class="`${prefix}-containers`">
-        <div
+        <!-- <div
           v-for="(item, i) in currentList"
           @mousedown="handleMD($event, i)"
           @mouseenter="now = i"
@@ -13,7 +13,13 @@
           :class="{ [`${prefix}-list-item`]: true, sel: i == now }"
         >
           {{ text(item) }}
-        </div>
+        </div> -->
+        <vue-menu
+          :menu="currentList"
+          v-model="currentvalue"
+          @on-click="chooseMenu"
+          :label.sync="currentLabel"
+        ></vue-menu>
         <div
           :class="`${prefix}-list-item`"
           v-show="currentList.length == 0"
@@ -27,7 +33,11 @@
 </template>
 
 <script>
+import { VueMenu } from "@secrets/vue-menu";
 export default {
+  components: {
+    "vue-menu": VueMenu
+  },
   props: {
     // 列表数据
     list: Array,
@@ -51,24 +61,47 @@ export default {
   },
   data() {
     return {
+      currentvalue: [],
+      currentLabel: [],
       prefix: "mention",
       now: 0,
       listWidth: 140
     };
   },
+  watch: {
+    currentvalue(n) {
+      console.log(`n ${n}`);
+    },
+    currentLabel(n) {
+      console.log(`n ${n}`);
+    }
+  },
   computed: {
     currentList() {
-      // return this.list;
-      return this.list.filter(item => {
-        return (
-          this.getValue(item)
-            .toLowerCase()
-            .indexOf(this.keyWord.toLowerCase()) > -1
-        );
+      let ls = this.list.map(el => {
+        if (Object.prototype.toString.call(el) === "[object Object]") {
+          return el;
+        }
+        return {
+          name: el,
+          title: el
+        };
       });
+      console.log(ls);
+      return ls;
+      // return this.list.filter((item) => {
+      //   return (
+      //     this.getValue(item)
+      //       .toLowerCase()
+      //       .indexOf(this.keyWord.toLowerCase()) > -1
+      //   );
+      // });
     }
   },
   methods: {
+    chooseMenu(...items) {
+      console.log(items);
+    },
     text(item) {
       return this.getValue(item);
     },

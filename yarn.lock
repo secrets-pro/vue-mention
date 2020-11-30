@@ -750,10 +750,10 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@secrets/vue-menu@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.npm.taobao.org/@secrets/vue-menu/download/@secrets/vue-menu-0.0.6.tgz#c80be11a6eeaaf073df7db34275beab190c87931"
-  integrity sha1-yAvhGm7qrwc999s0J1vqsZDIeTE=
+"@secrets/vue-menu@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npm.taobao.org/@secrets/vue-menu/download/@secrets/vue-menu-0.0.7.tgz#e7fddaa8c00d42cf34e2ba85bf457a9118a67fc5"
+  integrity sha1-5/3aqMANQs804rqFv0V6kRimf8U=
   dependencies:
     vue "^2.6.12"
 
