@@ -23,9 +23,8 @@
 
 <script>
 import VueMention from "../src/components/VueMention/";
-import VueMenu from "../src/components/VueMenu";
 export default {
-  components: { VueMention, VueMenu },
+  components: { VueMention },
   data() {
     return {
       value: [],
@@ -40,16 +39,16 @@ export default {
               name: "space-1",
               title: "space",
               items: [
-                { name: "space-2-1", title: "space-2-1" },
-                { name: "space-2-2", title: "space-2-2" }
+                { name: "space-2-1-name", title: "space-2-1" },
+                { name: "space-2-2-name", title: "space-2-2" }
               ]
             },
             {
               name: "space-2",
               title: "space2",
               items: [
-                { name: "space-2-1", title: "space-2-1" },
-                { name: "space-2-2", title: "space-2-2" }
+                { name: "space-2-1-name", title: "space-2-1" },
+                { name: "space-2-2-name", title: "space-2-2" }
               ]
             }
           ]
@@ -71,7 +70,14 @@ export default {
               name: "555",
               title: "555",
               items: [
-                { name: "space-3-1", title: "space-3-1" },
+                {
+                  name: "space-3-1",
+                  title: "space-3-1",
+                  items: [
+                    { name: "5-5", title: "5-5" },
+                    { name: "5-51", title: "5-51" }
+                  ]
+                },
                 { name: "space-3-2", title: "space-3-2" },
                 { name: "space-3-3", title: "space-3-2" },
                 { name: "space-3-4", title: "space-3-2" }
