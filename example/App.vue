@@ -5,6 +5,7 @@
     <h3>自定义插槽</h3>
     <vue-mention
       v-model="text"
+      :label.sync="label"
       :list="menu"
       value-key="text"
       custom-char="@"
@@ -23,12 +24,13 @@
 
 <script>
 import VueMention from "../src/components/VueMention/";
+import { transationLabel } from "../src/utils/index.js";
 export default {
   components: { VueMention },
   data() {
     return {
       value: [],
-      label: [],
+      label: null,
       menu: [
         { name: "home", title: "home" },
         {
@@ -57,7 +59,7 @@ export default {
           name: "INFOMATION",
           title: "INFOMATION",
           items: [
-            { name: "333", title: "333" },
+            { name: "333", title: "333-label" },
             {
               name: "444",
               title: "444",
@@ -86,7 +88,7 @@ export default {
           ]
         }
       ],
-      text: "Hello World! @Cyber Fei \n@mxsg.com @小明 ahaha",
+      text: "Hello World! @space/space-1/space-2-1-name @INFOMATION/333",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
@@ -107,6 +109,11 @@ export default {
         rows: 6
       }
     };
+  },
+  mounted() {
+    console.log(this.text);
+    let label = transationLabel(this.text, this.menu);
+    console.log(label);
   }
 };
 </script>

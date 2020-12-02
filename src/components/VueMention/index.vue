@@ -8,7 +8,6 @@
       @input="handleInput"
       @keyup="keyup"
       @keydown="keydown"
-      @blur="showFlag = false"
       v-bind="options"
     ></textarea>
     <partList
@@ -18,14 +17,9 @@
       :top="top"
       :pos="pos"
       :taW="el.offsetWidth"
-      @on-select="sel"
+      @on-select="select"
       :keyWord="keyWord"
-      :getValue="getValue"
-      :valueKey="valueKey"
     >
-      <template slot="item" slot-scope="props">
-        <slot name="item" :item="props.item"></slot>
-      </template>
     </partList>
   </div>
 </template>
@@ -33,6 +27,8 @@
 <script>
 import partList from "./List.vue";
 import getCaretCoordinates from "./textarea-caret";
+import { transationLabel } from "@/utils/index.js";
+import { debounce } from "lodash";
 
 export default {
   name: "vue-mention",
@@ -40,6 +36,7 @@ export default {
   props: {
     // 绑定数据
     value: String,
+    label: String,
     // 候选列表
     list: {
       type: Array,
@@ -58,10 +55,6 @@ export default {
       type: Boolean,
       default: false
     },
-    // 显示字段名
-    valueKey: {
-      type: String
-    },
     // 原生配置
     options: {
       type: Object,
@@ -78,21 +71,18 @@ export default {
       prefix: "mention",
       el: {},
       currentValue: this.value,
+      currentLabel: transationLabel(this.value, this.list),
       pos: { top: -100000, left: 0 },
       showFlag: false,
       keyWord: ""
     };
   },
   methods: {
-    // 获取item的value
-    getValue(item) {
-      return this.valueKey ? item[this.valueKey] : item;
-    },
-
     // 输入
     handleInput(e) {
       if (e.inputType) {
         this.$emit("input", this.currentValue);
+        // this.$emit("update:label", this.currentLabel);
         if (e.data === this.customChar) this.show();
         if (this.showFlag) {
           this.$nextTick(() => {
@@ -124,7 +114,7 @@ export default {
 
     // 打开列表
     show() {
-      this.$refs.list.now = 0;
+      // this.$refs.list.now = 0;
       this.keyWord = "";
       this.pos = { top: -100000, left: 0 };
       this.$nextTick(() => {
@@ -133,8 +123,8 @@ export default {
     },
 
     // 选中列表
-    sel(item) {
-      let text = this.getValue(item);
+    select(values, labels) {
+      let text = labels.join("/");
       this.showFlag = false;
 
       if (!text) return;
@@ -151,13 +141,12 @@ export default {
     },
 
     hasItem(s) {
-      for (let i = 0; i < this.list.length; i++) {
-        let value = this.getValue(this.list[i]);
-        if (value == s) return true;
-      }
-      return false;
+      return s && s.length > 0;
     },
-
+    changeLabel() {
+      this.currentLabel = transationLabel(this.currentValue, this.list);
+      this.$emit("update:label", this.currentLabel);
+    },
     // 监听按键
     keydown(e) {
       // 删除
@@ -174,8 +163,6 @@ export default {
         if (pos == atPos + 1) {
           this.showFlag = false;
         }
-
-        // 列表项整体删除
         if (atPos > -1 && str1.charAt(str1.length - 1) == " ") {
           let s = str1.slice(atPos + 1, str1.length - 1);
           if (this.hasItem(s)) {
@@ -189,24 +176,24 @@ export default {
         }
       }
 
-      if (this.showFlag) {
-        if (
-          e.key === "ArrowUp" ||
-          e.key === "ArrowDown" ||
-          e.key === "ArrowLeft" ||
-          e.key === "ArrowRight"
-        ) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.$refs.list.key(e.key);
-        }
-        if (e.key === "Enter") {
-          e.preventDefault();
-          e.stopPropagation();
-          this.$refs.list.sel();
-        }
-        if (e.key === "Escape") this.showFlag = false;
-      }
+      // if (this.showFlag) {
+      //   if (
+      //     e.key === "ArrowUp" ||
+      //     e.key === "ArrowDown" ||
+      //     e.key === "ArrowLeft" ||
+      //     e.key === "ArrowRight"
+      //   ) {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     this.$refs.list.key(e.key);
+      //   }
+      //   if (e.key === "Enter") {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     this.$refs.list.sel();
+      //   }
+      //   if (e.key === "Escape") this.showFlag = false;
+      // }
 
       this.keyWord += "";
     }
@@ -214,10 +201,14 @@ export default {
   watch: {
     value(val) {
       this.currentValue = val;
+    },
+    currentValue() {
+      this.changeLabel();
     }
   },
   mounted() {
     this.el = this.$el.querySelector("textarea");
+    this.changeLabel = debounce(this.changeLabel, 250);
   }
 };
 </script>
