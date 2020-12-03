@@ -1,4 +1,3 @@
-import "./index.less";
 import component from "./index.vue";
 
 component.install = function(Vue) {

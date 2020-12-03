@@ -107,10 +107,21 @@ export default function getCaretCoordinates(element, position, options) {
   // For inputs, just '.' would be enough, but no need to bother.
   span.textContent = element.value.substring(position) || "."; // || because a completely empty faux span doesn't render at all
   div.appendChild(span);
+  let left = span.offsetLeft + parseInt(computed["borderLeftWidth"]);
 
+  let clientWidth = element.clientWidth;
+  // FIXME 出现偶发的位置偏移
+  let className = "left";
+  if (clientWidth - 100 < left) {
+    left = clientWidth - 100;
+  }
+  if (clientWidth - 200 < left) {
+    className = "right";
+  }
   var coordinates = {
     top: span.offsetTop + parseInt(computed["borderTopWidth"]),
-    left: span.offsetLeft + parseInt(computed["borderLeftWidth"]),
+    left: left,
+    className,
     height: parseInt(computed["lineHeight"])
   };
 
@@ -119,6 +130,5 @@ export default function getCaretCoordinates(element, position, options) {
   } else {
     document.body.removeChild(div);
   }
-  // console.log(coordinates);
   return coordinates;
 }

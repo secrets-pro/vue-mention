@@ -3,9 +3,10 @@
     :class="`${prefix}-open`"
     :style="{ top: pos.top + 'px', left: pos.left + 'px' }"
   >
-    <div :class="calc()" :style="{ width: listWidth + 'px' }">
+    <div :class="calc()">
       <div :class="`${prefix}-containers`">
         <vue-menu
+          :placement="pos.className"
           :menu="currentList"
           v-model="currentvalue"
           @on-click="chooseMenu"
@@ -47,8 +48,7 @@ export default {
       currentvalue: [],
       currentLabel: [],
       prefix: "mention",
-      now: 0,
-      listWidth: 140
+      now: 0
     };
   },
 
@@ -79,9 +79,6 @@ export default {
     //     this.$el.querySelector(".sel").scrollIntoView(false);
     //   });
     // },
-    sel() {
-      this.$emit("on-select", this.currentList[this.now]);
-    },
     // 避免在最右侧被遮挡
     calc() {
       let classNames = [`${this.prefix}-list`];

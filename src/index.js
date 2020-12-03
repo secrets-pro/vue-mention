@@ -1,6 +1,7 @@
-import mention from "./components/VueMention";
+import VueMention from "./components/VueMention";
+import "./components/style/index.less";
 const components = {
-  mention
+  VueMention
 };
 function install(Vue) {
   Object.keys(components).forEach(key => {
@@ -8,7 +9,7 @@ function install(Vue) {
   });
 }
 if (window && window.Vue) install(window.Vue);
-export { mention };
+export { VueMention };
 export default {
   ...components,
   install

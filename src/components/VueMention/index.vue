@@ -1,10 +1,10 @@
 <template>
   <div :class="`${prefix}-panel`">
     <textarea
-      style="resize: none"
+      style="resize: none;"
       :class="`${prefix}-editor`"
       spellcheck="false"
-      v-model="currentValue"
+      v-model="currentLabel"
       @input="handleInput"
       @keyup="keyup"
       @keydown="keydown"
@@ -27,7 +27,7 @@
 <script>
 import partList from "./List.vue";
 import getCaretCoordinates from "./textarea-caret";
-import { transationLabel } from "@/utils/index.js";
+import { transationLabel, transationValue } from "@/utils/index.js";
 import { debounce } from "lodash";
 
 export default {
@@ -46,9 +46,11 @@ export default {
     },
     customChar: {
       type: String,
-      default() {
-        return "@";
-      }
+      default: "@"
+    },
+    customBorderChart: {
+      type: String,
+      default: " "
     },
     // 向上打开
     top: {
@@ -71,7 +73,12 @@ export default {
       prefix: "mention",
       el: {},
       currentValue: this.value,
-      currentLabel: transationLabel(this.value, this.list),
+      currentLabel: transationLabel(
+        this.value,
+        this.list,
+        this.customChar,
+        this.customBorderChart
+      ),
       pos: { top: -100000, left: 0 },
       showFlag: false,
       keyWord: ""
@@ -81,7 +88,7 @@ export default {
     // 输入
     handleInput(e) {
       if (e.inputType) {
-        this.$emit("input", this.currentValue);
+        this.$emit("update:label", this.currentLabel);
         // this.$emit("update:label", this.currentLabel);
         if (e.data === this.customChar) this.show();
         if (this.showFlag) {
@@ -130,12 +137,15 @@ export default {
       if (!text) return;
 
       let pos = this.el.selectionEnd;
-      let str1 = this.value.slice(0, pos);
+      let str1 = this.currentLabel.slice(0, pos);
       let atPos = str1.lastIndexOf(this.customChar) + 1;
 
-      this.currentValue =
-        this.value.slice(0, atPos) + text + " " + this.value.slice(pos);
-      this.$emit("input", this.currentValue);
+      this.currentLabel =
+        this.currentLabel.slice(0, atPos) +
+        text +
+        this.customBorderChart +
+        this.currentLabel.slice(pos);
+      this.$emit("update:label", this.currentLabel);
 
       this.setRange(atPos + text.length + 1);
     },
@@ -143,72 +153,90 @@ export default {
     hasItem(s) {
       return s && s.length > 0;
     },
-    changeLabel() {
-      this.currentLabel = transationLabel(this.currentValue, this.list);
-      this.$emit("update:label", this.currentLabel);
+    // changeLabel() {
+    //   this.currentLabel = transationLabel(this.currentValue, this.list);
+    //   this.$emit("update:label", this.currentLabel);
+    // },
+    changeValue() {
+      this.currentValue = transationValue(
+        this.currentLabel,
+        this.list,
+        this.customChar,
+        this.customBorderChart
+      );
+      this.$emit("input", this.currentValue);
     },
     // 监听按键
     keydown(e) {
+      this.showFlag = false;
       // 删除
       if (e.key == "Backspace") {
-        // this.showFlag = false;
-
-        let pos = this.el.selectionEnd;
-        let str1 = this.value.slice(0, pos);
-        let str2 = this.value.slice(pos);
-
-        let atPos = str1.lastIndexOf(this.customChar);
-
-        // 删除 @ 隐藏列表
-        if (pos == atPos + 1) {
-          this.showFlag = false;
-        }
-        if (atPos > -1 && str1.charAt(str1.length - 1) == " ") {
-          let s = str1.slice(atPos + 1, str1.length - 1);
-          if (this.hasItem(s)) {
-            e.preventDefault();
-            e.stopPropagation();
-            str1 = this.value.slice(0, atPos);
-            this.currentValue = str1 + str2;
-            this.$emit("input", this.currentValue);
-            this.setRange(atPos);
-          }
-        }
+        this.controlDetele(e);
       }
 
-      // if (this.showFlag) {
-      //   if (
-      //     e.key === "ArrowUp" ||
-      //     e.key === "ArrowDown" ||
-      //     e.key === "ArrowLeft" ||
-      //     e.key === "ArrowRight"
-      //   ) {
-      //     e.preventDefault();
-      //     e.stopPropagation();
-      //     this.$refs.list.key(e.key);
-      //   }
-      //   if (e.key === "Enter") {
-      //     e.preventDefault();
-      //     e.stopPropagation();
-      //     this.$refs.list.sel();
-      //   }
-      //   if (e.key === "Escape") this.showFlag = false;
-      // }
+      if (!this.showFlag) {
+        //处理左右移动
+        this.controlMoveLeftRight(e);
+      } else {
+        if (e.key === "Escape") this.showFlag = false;
+      }
 
       this.keyWord += "";
+    },
+    controlMoveLeftRight(e) {
+      let key = e.key;
+      if (key === "ArrowLeft" || key === "ArrowRight") {
+        e.preventDefault();
+        e.stopPropagation();
+        let pos = this.el.selectionEnd;
+
+        this.setRange(pos + (key === "ArrowLeft" ? -1 : 1));
+        // this.$refs.list.key(e.key);
+      }
+    },
+    controlDetele(e) {
+      let pos = this.el.selectionEnd; // 光标所处位置
+      let str1 = this.currentLabel.slice(0, pos); // 光标前的内容
+      let str2 = this.currentLabel.slice(pos); // 后面的内容
+
+      let atPos = str1.lastIndexOf(this.customChar); // 光标前最后一个@字符的位置
+
+      // 删除 @ 隐藏列表
+      if (pos == atPos + 1) {
+        this.showFlag = false;
+      }
+      // 找到最后一个@字符分位置和当前光标位置之间 是否有多个空格（index===lastIndex）
+      let isnbsp = str1.charAt(str1.length - 1) == this.customBorderChart;
+      let isBordernbsp =
+        str1.indexOf(this.customBorderChart, atPos) ===
+        str1.lastIndexOf(this.customBorderChart);
+      if (atPos > -1 && isnbsp && isBordernbsp) {
+        let s = str1.slice(atPos + 1, str1.length - 1);
+        if (this.hasItem(s)) {
+          e.preventDefault();
+          e.stopPropagation();
+          str1 = this.currentLabel.slice(0, atPos);
+          this.currentLabel = str1 + str2;
+          this.$emit("update:label", this.currentLabel);
+          this.setRange(atPos);
+        }
+      }
     }
   },
   watch: {
     value(val) {
       this.currentValue = val;
     },
-    currentValue() {
-      this.changeLabel();
+    currentLabel() {
+      this.changeValue();
     }
   },
   mounted() {
     this.el = this.$el.querySelector("textarea");
-    this.changeLabel = debounce(this.changeLabel, 250);
+    // this.changeLabel = debounce(this.changeLabel, 250);
+    this.changeValue = debounce(this.changeValue, 250);
+    // this.controlMoveLeftRight = debounce(this.controlMoveLeftRight, 200);
+    // this.controlDetele = debounce(this.controlDetele, 200);
   }
 };
 </script>

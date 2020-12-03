@@ -9,6 +9,7 @@
       :list="menu"
       value-key="text"
       custom-char="@"
+      custom-border-chart=" "
       :options="config"
     >
     </vue-mention>
@@ -23,8 +24,7 @@
 </template>
 
 <script>
-import VueMention from "../src/components/VueMention/";
-import { transationLabel } from "../src/utils/index.js";
+import { VueMention } from "../src";
 export default {
   components: { VueMention },
   data() {
@@ -32,25 +32,25 @@ export default {
       value: [],
       label: null,
       menu: [
-        { name: "home", title: "home" },
+        { name: "home", title: "homelabel" },
         {
           name: "space",
-          title: "MY SPACE",
+          title: "MYSPACE",
           items: [
             {
               name: "space-1",
-              title: "space",
+              title: "spacelabel",
               items: [
-                { name: "space-2-1-name", title: "space-2-1" },
-                { name: "space-2-2-name", title: "space-2-2" }
+                { name: "space-2-1-name", title: "space-2-1label" },
+                { name: "space-2-2-name", title: "space-2-2label" }
               ]
             },
             {
               name: "space-2",
-              title: "space2",
+              title: "space2label",
               items: [
-                { name: "space-2-1-name", title: "space-2-1" },
-                { name: "space-2-2-name", title: "space-2-2" }
+                { name: "space-2-1-name", title: "space-2-1label" },
+                { name: "space-2-2-name", title: "space-2-2label" }
               ]
             }
           ]
@@ -62,10 +62,10 @@ export default {
             { name: "333", title: "333-label" },
             {
               name: "444",
-              title: "444",
+              title: "444label",
               items: [
-                { name: "space-2-1", title: "space-2-1" },
-                { name: "space-2-2", title: "space-2-2" }
+                { name: "space-2-1", title: "space-2-1label" },
+                { name: "space-2-2", title: "space-2-2label" }
               ]
             },
             {
@@ -74,21 +74,21 @@ export default {
               items: [
                 {
                   name: "space-3-1",
-                  title: "space-3-1",
+                  title: "space-3-1label",
                   items: [
-                    { name: "5-5", title: "5-5" },
-                    { name: "5-51", title: "5-51" }
+                    { name: "5-5", title: "5-5label" },
+                    { name: "5-51", title: "5-51label" }
                   ]
                 },
-                { name: "space-3-2", title: "space-3-2" },
-                { name: "space-3-3", title: "space-3-2" },
-                { name: "space-3-4", title: "space-3-2" }
+                { name: "space-3-2", title: "space-3-2label" },
+                { name: "space-3-3", title: "space-3-3label" },
+                { name: "space-3-4", title: "space-3-4label" }
               ]
             }
           ]
         }
       ],
-      text: "Hello World! @space/space-1/space-2-1-name @INFOMATION/333",
+      text: "Hello World! @space/space-1/space-2-1-name @INFOMATION/333 ",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
@@ -110,11 +110,7 @@ export default {
       }
     };
   },
-  mounted() {
-    console.log(this.text);
-    let label = transationLabel(this.text, this.menu);
-    console.log(label);
-  }
+  mounted() {}
 };
 </script>
 

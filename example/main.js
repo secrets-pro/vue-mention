@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import "./index.less";
+// import "./index.less";
 
 Vue.config.productionTip = false;
 // console.log(VueMenu);
