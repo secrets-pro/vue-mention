@@ -32,63 +32,24 @@ export default {
       value: [],
       label: null,
       menu: [
-        { name: "home", title: "homelabel" },
+        { name: "{{home}}", title: "homelabel" },
         {
-          name: "space",
+          name: "{{space}}",
           title: "MYSPACE",
           items: [
             {
-              name: "space-1",
-              title: "spacelabel",
-              items: [
-                { name: "space-2-1-name", title: "space-2-1label" },
-                { name: "space-2-2-name", title: "space-2-2label" }
-              ]
+              name: "{{space-1}}",
+              title: "spacelabel"
             },
             {
-              name: "space-2",
-              title: "space2label",
-              items: [
-                { name: "space-2-1-name", title: "space-2-1label" },
-                { name: "space-2-2-name", title: "space-2-2label" }
-              ]
-            }
-          ]
-        },
-        {
-          name: "INFOMATION",
-          title: "INFOMATION",
-          items: [
-            { name: "333", title: "333-label" },
-            {
-              name: "444",
-              title: "444label",
-              items: [
-                { name: "space-2-1", title: "space-2-1label" },
-                { name: "space-2-2", title: "space-2-2label" }
-              ]
-            },
-            {
-              name: "555",
-              title: "555",
-              items: [
-                {
-                  name: "space-3-1",
-                  title: "space-3-1label",
-                  items: [
-                    { name: "5-5", title: "5-5label" },
-                    { name: "5-51", title: "5-51label" }
-                  ]
-                },
-                { name: "space-3-2", title: "space-3-2label" },
-                { name: "space-3-3", title: "space-3-3label" },
-                { name: "space-3-4", title: "space-3-4label" }
-              ]
+              name: "{{space-2}}",
+              title: "space2label"
             }
           ]
         }
       ],
-      text: "Hello World! @space/space-1/space-2-1-name @INFOMATION/333 ",
+      text:
+        "Hello World! @{{space}}/{{space-1}} saxasxsaxsa @{{space}}/{{space-2}} ",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {

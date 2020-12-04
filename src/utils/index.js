@@ -1,37 +1,3 @@
-// 获取目标字符串所有的索引位置
-export function getStringIndex(string, target) {
-  if (!string) {
-    return -1;
-  }
-  let index = [];
-  let substring = string;
-  let begin = substring.indexOf(target);
-  while (begin > -1) {
-    index.push(begin);
-    substring = substring.substring(begin + target.length);
-    begin = substring.indexOf(target);
-  }
-  return index;
-}
-
-// 删除指定位置的目标字符串
-export function deleteStringIndex(string, target, index = 0) {
-  if (index > -1) {
-    // 先获取所有
-    let allIndex = getStringIndex(string, target);
-    if (allIndex > -1) {
-      let targetIndexStart = allIndex[index];
-      let targetIndexEnd = targetIndexStart + target.length;
-      return (
-        string.substring(0, targetIndexStart) + string.substring(targetIndexEnd)
-      );
-    } else {
-      return string;
-    }
-  }
-  return string;
-}
-
 function getValueLabels(
   list,
   parentValue = "",

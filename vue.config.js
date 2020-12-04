@@ -1,11 +1,15 @@
+let env = process.env.NODE_ENV == "production";
+let externals = env
+  ? {
+      lodash: "_",
+      "@secrets/vue-menu": "vue-menu"
+    }
+  : undefined;
 module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   configureWebpack: {
-    externals: {
-      lodash: "_",
-      "@secrets/vue-menu": "vue-menu"
-    },
+    externals,
     optimization: {
       minimize: true
     }
