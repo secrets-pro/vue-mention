@@ -48,8 +48,7 @@ export default {
           ]
         }
       ],
-      text:
-        "Hello World! @{{space}}/{{space-1}} saxasxsaxsa @{{space}}/{{space-2}} ",
+      text: null,
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {

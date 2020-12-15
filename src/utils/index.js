@@ -22,6 +22,9 @@ function getValueLabels(
 }
 // value 转 label 数组
 export function transationLabel(valueString, list, startChart, endChart) {
+  if (!valueString) {
+    return "";
+  }
   // 先取出所有的value
   let reg = new RegExp(`(${startChart}=?)+(\\S*)(?=${endChart})?`, "g"); // /(@=?)+(\S*)(?= )?/gi;
   let result = valueString.match(reg);
@@ -42,6 +45,9 @@ export function transationLabel(valueString, list, startChart, endChart) {
 
 // value 转 label 数组
 export function transationValue(labelString, list, startChart, endChart) {
+  if (!labelString) {
+    return "";
+  }
   // 先取出所有的value
   let reg = new RegExp(`(${startChart}=?)+(\\S*)(?=${endChart})?`, "g"); // /(@=?)+(\S*)(?= )?/gi;
   let result = labelString.match(reg);
