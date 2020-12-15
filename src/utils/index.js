@@ -54,7 +54,9 @@ export function transationValue(labelString, list, startChart, endChart) {
     // 然后去找label
     result.forEach(element => {
       let v = config[element] || element;
-      labelString = labelString.replaceAll(element, startChart + v);
+      if (v != startChart) {
+        labelString = labelString.replaceAll(element, startChart + v);
+      }
     });
   }
   return labelString;

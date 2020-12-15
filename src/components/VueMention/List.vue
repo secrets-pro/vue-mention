@@ -8,9 +8,7 @@
         <vue-menu
           :placement="pos.className"
           :menu="currentList"
-          v-model="currentvalue"
           @on-click="chooseMenu"
-          :label.sync="currentLabel"
         ></vue-menu>
         <div
           :class="`${prefix}-list-item`"

@@ -8,3 +8,18 @@
 @primary-color: #57a3f3;
 @hover-color: #f3f3f3;
 @prefix: mention;
+
+.sm-menu .chid-nav > li {
+  position: unset;
+}
+.sm-menu .chid-nav > li:hover > div > div.chid-nav-wrap {
+  top: 0;
+}
+.sm-menu .chid-nav > li.active {
+  color: inherit;
+  background: #fff;
+}
+.sm-menu .chid-nav > li:hover {
+  color: @primary-color !important;
+  background-color: #f5f6fc !important;
+}
