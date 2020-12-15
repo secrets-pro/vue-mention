@@ -18,14 +18,14 @@
   "module": "dist/vue-mention.common.js",
   "unpkg": "dist/vue-mention.common.js",
   "dependencies": {
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "@secrets/vue-menu": "^0.0.8"
   },
   "keywords": [
     "vue",
     "mention"
   ],
   "devDependencies": {
-    "@secrets/vue-menu": "^0.0.8",
     "lodash": "^4.17.20",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^4.5.9",
