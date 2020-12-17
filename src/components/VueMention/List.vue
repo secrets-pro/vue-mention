@@ -6,6 +6,7 @@
     <div :class="calc()">
       <div :class="`${prefix}-containers`">
         <vue-menu
+          v-show="currentList.length"
           :placement="pos.className"
           :menu="currentList"
           @on-click="chooseMenu"
