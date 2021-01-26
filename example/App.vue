@@ -11,6 +11,7 @@
       custom-char="@"
       custom-border-chart=" "
       :options="config"
+      :beforeSelect="beforeSelect"
     >
     </vue-mention>
     <h3>内容</h3>
@@ -32,7 +33,20 @@ export default {
       value: [],
       label: null,
       menu: [
-        { name: "{{home}}", title: "homelabel" },
+        {
+          name: "",
+          title: "homelabel",
+          items: [
+            {
+              name: "{{space-1}}",
+              title: "spacelabel"
+            },
+            {
+              name: "{{space-2}}",
+              title: "space2label"
+            }
+          ]
+        },
         {
           name: "{{space}}",
           title: "MYSPACE",
@@ -69,6 +83,12 @@ export default {
         rows: 6
       }
     };
+  },
+  methods: {
+    beforeSelect(v, l) {
+      console.log(v, l);
+      return false;
+    }
   },
   mounted() {}
 };

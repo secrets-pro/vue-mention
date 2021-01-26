@@ -1,6 +1,6 @@
 {
   "name": "@secrets/vue-mention",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "vue-mention",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/secrets-pro/vue-mention",
   "scripts": {
     "serve": "vue-cli-service serve ./example/main.js",
-     "build": "vue-cli-service build --target lib --name vue-mention --formats commonjs ./src/index.js",
+    "build": "vue-cli-service build --target lib --name vue-mention --formats commonjs ./src/index.js",
     "lint": "vue-cli-service lint",
     "release": "npm publish --access public --registry  https://registry.npmjs.org/"
   },
@@ -18,6 +18,7 @@
   "module": "dist/vue-mention.common.js",
   "unpkg": "dist/vue-mention.common.js",
   "dependencies": {
+    "@secrets/vue-menu": "0.0.8",
     "vue": "^2.6.12"
   },
   "keywords": [
@@ -25,7 +26,6 @@
     "mention"
   ],
   "devDependencies": {
-    
     "lodash": "^4.17.20",
     "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^4.5.9",

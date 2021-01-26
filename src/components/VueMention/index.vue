@@ -66,6 +66,12 @@ export default {
           rows: 3
         };
       }
+    },
+    beforeSelect: {
+      type: Function,
+      default() {
+        return () => true;
+      }
     }
   },
   data() {
@@ -133,21 +139,22 @@ export default {
     select(values, labels) {
       let text = labels.join("/");
       this.showFlag = false;
+      if (this.beforeSelect(values.join("/"), text)) {
+        if (!text) return;
 
-      if (!text) return;
+        let pos = this.el.selectionEnd;
+        let str1 = this.currentLabel.slice(0, pos);
+        let atPos = str1.lastIndexOf(this.customChar) + 1;
 
-      let pos = this.el.selectionEnd;
-      let str1 = this.currentLabel.slice(0, pos);
-      let atPos = str1.lastIndexOf(this.customChar) + 1;
+        this.currentLabel =
+          this.currentLabel.slice(0, atPos) +
+          text +
+          this.customBorderChart +
+          this.currentLabel.slice(pos);
+        this.$emit("update:label", this.currentLabel);
 
-      this.currentLabel =
-        this.currentLabel.slice(0, atPos) +
-        text +
-        this.customBorderChart +
-        this.currentLabel.slice(pos);
-      this.$emit("update:label", this.currentLabel);
-
-      this.setRange(atPos + text.length + 1);
+        this.setRange(atPos + text.length + 1);
+      }
     },
 
     hasItem(s) {
