@@ -1,8 +1,5 @@
 <template>
-  <div id="app" style="padding: 15px">
-    <h3>简单使用</h3>
-    <!-- <vue-mention v-model="text" :list="members1"></vue-mention> -->
-    <h3>自定义插槽</h3>
+  <div id="app">
     <vue-mention
       v-model="text"
       :label.sync="label"
@@ -32,36 +29,7 @@ export default {
     return {
       value: [],
       label: null,
-      menu: [
-        {
-          name: "",
-          title: "homelabel",
-          items: [
-            {
-              name: "{{space-1}}",
-              title: "spacelabel"
-            },
-            {
-              name: "{{space-2}}",
-              title: "space2label"
-            }
-          ]
-        },
-        {
-          name: "{{space}}",
-          title: "MYSPACE",
-          items: [
-            {
-              name: "{{space-1}}",
-              title: "spacelabel"
-            },
-            {
-              name: "{{space-2}}",
-              title: "space2label"
-            }
-          ]
-        }
-      ],
+      menu: [],
       text: null,
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
@@ -84,10 +52,31 @@ export default {
       }
     };
   },
+  created() {
+    this.randowmString();
+  },
   methods: {
+    randowmString() {
+      var length = Math.floor(5 + Math.random() * 5);
+      let ms = [];
+      for (let i = 0; i < length; i++) {
+        let o = {
+          name: "level1-" + i,
+          title: "homelabel" + i,
+          items: new Array(5).fill(1).map((el, index) => {
+            return {
+              name: "level1-" + i + "level2-" + index,
+              title: "level1" + i + "level2" + index
+            };
+          })
+        };
+        ms.push(o);
+      }
+      this.menu = ms;
+    },
     beforeSelect(v, l) {
       console.log(v, l);
-      return false;
+      return true;
     }
   },
   mounted() {}
