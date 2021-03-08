@@ -48,9 +48,13 @@ export default {
       type: String,
       default: "@"
     },
+    customBorderLeftChart: {
+      type: String,
+      default: "#"
+    },
     customBorderChart: {
       type: String,
-      default: " "
+      default: "#"
     },
     // 向上打开
     top: {
@@ -82,7 +86,8 @@ export default {
       currentLabel: transationLabel(
         this.value,
         this.list,
-        this.customChar,
+        // this.customChar,
+        this.customBorderLeftChart,
         this.customBorderChart
       ),
       pos: { top: -100000, left: 0 },
@@ -144,10 +149,11 @@ export default {
 
         let pos = this.el.selectionEnd;
         let str1 = this.currentLabel.slice(0, pos);
-        let atPos = str1.lastIndexOf(this.customChar) + 1;
+        let atPos = str1.lastIndexOf(this.customChar);
 
         this.currentLabel =
           this.currentLabel.slice(0, atPos) +
+          this.customBorderLeftChart +
           text +
           this.customBorderChart +
           this.currentLabel.slice(pos);
@@ -168,7 +174,8 @@ export default {
       this.currentValue = transationValue(
         this.currentLabel,
         this.list,
-        this.customChar,
+        // this.customChar,
+        this.customBorderLeftChart,
         this.customBorderChart
       );
       this.$emit("input", this.currentValue);
@@ -206,7 +213,7 @@ export default {
       let str1 = this.currentLabel.slice(0, pos); // 光标前的内容
       let str2 = this.currentLabel.slice(pos); // 后面的内容
 
-      let atPos = str1.lastIndexOf(this.customChar); // 光标前最后一个@字符的位置
+      let atPos = str1.lastIndexOf(this.customBorderLeftChart); // 光标前最后一个@字符的位置
 
       // 删除 @ 隐藏列表
       if (pos == atPos + 1) {

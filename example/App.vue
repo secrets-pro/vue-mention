@@ -6,7 +6,8 @@
       :list="menu"
       value-key="text"
       custom-char="@"
-      custom-border-chart=" "
+      custom-border-left-chart="<"
+      custom-border-chart=">"
       :options="config"
       :beforeSelect="beforeSelect"
     >
@@ -30,7 +31,7 @@ export default {
       value: [],
       label: null,
       menu: [],
-      text: null,
+      text: "xsaxsa<level1-1/level1-1level2-1>xxxx<level1-4/level1-4level2-3>z",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {

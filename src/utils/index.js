@@ -3,7 +3,8 @@ function getValueLabels(
   parentValue = "",
   parentLabel = "",
   resule = {},
-  startChart
+  startChart,
+  endChart
 ) {
   if (list) {
     list.forEach(el => {
@@ -12,10 +13,21 @@ function getValueLabels(
       let nextLabel = parentLabel ? parentLabel + "/" + title : title;
 
       if (items) {
-        getValueLabels(items, nextName, nextLabel, resule, startChart);
+        getValueLabels(
+          items,
+          nextName,
+          nextLabel,
+          resule,
+          startChart,
+          endChart
+        );
       } else {
-        resule[`${startChart}${nextName}`] = nextLabel;
-        resule[`${startChart}${nextLabel}`] = nextName;
+        resule[
+          `${startChart}${nextName}${endChart}`
+        ] = `${startChart}${nextLabel}${endChart}`;
+        resule[
+          `${startChart}${nextLabel}${endChart}`
+        ] = `${startChart}${nextName}${endChart}`;
       }
     });
   }
@@ -26,18 +38,20 @@ export function transationLabel(valueString, list, startChart, endChart) {
     return "";
   }
   // 先取出所有的value
-  let reg = new RegExp(`(${startChart}=?)+(\\S*)(?=${endChart})?`, "g"); // /(@=?)+(\S*)(?= )?/gi;
+  let s = `[^\\${startChart}\\${endChart}]+(?=\\${endChart})`;
+  let reg = new RegExp(s, "g"); // /(@=?)+(\S*)(?= )?/gi;
   let result = valueString.match(reg);
   if (result && result.length) {
     let config = {};
-    getValueLabels(list, "", "", config, startChart);
+    getValueLabels(list, "", "", config, startChart, endChart);
     // 拿到所有匹配的
     // 先去重
     result = [...new Set(result)];
     // 然后去找label
     result.forEach(element => {
-      let v = config[element] || element;
-      valueString = valueString.replaceAll(element, startChart + v);
+      let els = `${startChart}${element}${endChart}`;
+      let v = config[els] || els;
+      valueString = valueString.replaceAll(els, v);
     });
   }
   return valueString;
@@ -49,19 +63,21 @@ export function transationValue(labelString, list, startChart, endChart) {
     return "";
   }
   // 先取出所有的value
-  let reg = new RegExp(`(${startChart}=?)+(\\S*)(?=${endChart})?`, "g"); // /(@=?)+(\S*)(?= )?/gi;
+  let s = `[^\\${startChart}\\${endChart}]+(?=\\${endChart})`;
+  let reg = new RegExp(s, "g"); // /(@=?)+(\S*)(?= )?/gi;
   let result = labelString.match(reg);
   if (result && result.length) {
     let config = {};
-    getValueLabels(list, "", "", config, startChart);
+    getValueLabels(list, "", "", config, startChart, endChart);
     // 拿到所有匹配的
     // 先去重
     result = [...new Set(result)];
     // 然后去找label
     result.forEach(element => {
-      let v = config[element] || element;
+      let els = `${startChart}${element}${endChart}`;
+      let v = config[els] || els;
       if (v != startChart) {
-        labelString = labelString.replaceAll(element, startChart + v);
+        labelString = labelString.replaceAll(els, v);
       }
     });
   }
