@@ -23,6 +23,57 @@
 </template>
 
 <script>
+let s = [
+  {
+    name: "global",
+    title: "全局参数",
+    items: [{ name: "{{workflow.parameters.xas}}", title: "xasxas" }]
+  },
+  {
+    name: "",
+    title: "运行参数",
+    items: [
+      { name: "{{workflow.duration}}", title: "流水线运行持续时间" },
+      { name: "{{workflow.parameters.leo-app-name}}", title: "应用名称" },
+      {
+        name: "{{workflow.parameters.workflow-workspace-path}}",
+        title: "工作空间路径"
+      },
+      { name: "{{workflow.parameters.leo-app-alias}}", title: "应用名称别名" },
+      { name: "{{workflow.uid}}", title: "流水线运行记录Id" },
+      {
+        name: "{{workflow.parameters}}",
+        title: "流水线运行记录全部参数以Json编码"
+      },
+      { name: "{{workflow.creationTimestamp}}", title: "流水线记录创建时间" },
+      {
+        name: "{{workflow.parameters.leo-pipeline-name}}",
+        title: "流水线名称"
+      },
+      {
+        name: "{{workflow.parameters.leo-app-branch}}",
+        title: "源码分支(仅在webhook有效)"
+      },
+      {
+        name: "{{workflow.parameters.leo-app-source}}",
+        title: "源码地址(仅在webhook有效)"
+      },
+      { name: "{{workflow.name}}", title: "流水线运行记录名称" },
+      { name: "{{workflow.parameters.leo-project-name}}", title: "空间名称" },
+      { name: "{{workflow.parameters.leo-tenant-name}}", title: "租户名称" }
+    ]
+  },
+  {
+    name: "fdlqqfa-iwuauph",
+    title: "源码拉取",
+    items: [
+      {
+        name: "{{tasks.fdlqqfa-iwuauph.outputs.parameters.commit-id}}",
+        title: "Commit版本号"
+      }
+    ]
+  }
+];
 import { VueMention } from "../src";
 export default {
   components: { VueMention },
@@ -30,8 +81,8 @@ export default {
     return {
       value: [],
       label: null,
-      menu: [],
-      text: "xsaxsa<level1-1/level1-1level2-1>xxxx<level1-4/level1-4level2-3>z",
+      menu: s,
+      text: "",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
@@ -73,7 +124,7 @@ export default {
         };
         ms.push(o);
       }
-      this.menu = ms;
+      // this.menu = ms;
     },
     beforeSelect(v, l) {
       console.log(v, l);
