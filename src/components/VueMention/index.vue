@@ -8,6 +8,7 @@
       @input="handleInput"
       @keyup="keyup"
       @keydown="keydown"
+      @blur="handleBlur"
       v-bind="options"
     ></textarea>
     <partList
@@ -178,6 +179,7 @@ export default {
         this.customBorderLeftChart,
         this.customBorderChart
       );
+      this.handleBlur();
       this.$emit("input", this.currentValue);
     },
     // 监听按键
@@ -196,6 +198,9 @@ export default {
       }
 
       this.keyWord += "";
+    },
+    handleBlur() {
+      this.dispatch("FormItem", "on-form-blur", this.currentValue);
     },
     controlMoveLeftRight(e) {
       let key = e.key;
@@ -234,6 +239,22 @@ export default {
           this.$emit("update:label", this.currentLabel);
           this.setRange(atPos);
         }
+      }
+    },
+    dispatch(componentName, eventName, params) {
+      let parent = this.$parent || this.$root;
+      let name = parent.$options.name;
+      console.log(parent, name);
+      while (parent && (!name || name !== componentName)) {
+        parent = parent.$parent;
+
+        if (parent) {
+          name = parent.$options.name;
+        }
+        console.log(parent, name);
+      }
+      if (parent) {
+        parent.$emit.apply(parent, [eventName].concat(params));
       }
     }
   },
