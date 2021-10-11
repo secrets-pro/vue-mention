@@ -262,6 +262,15 @@ export default {
     value(val) {
       this.currentValue = val;
     },
+    list(value) {
+      this.currentLabel = transationLabel(
+        this.value,
+        value,
+        // this.customChar,
+        this.customBorderLeftChart,
+        this.customBorderChart
+      );
+    },
     currentLabel() {
       this.changeValue();
     }

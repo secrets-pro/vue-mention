@@ -13,9 +13,9 @@
     >
     </vue-mention>
     <h3>内容</h3>
-    <div style="white-space: pre">{{ text }}</div>
-    {{ value }}
-    {{ label }}
+    <div style="white-space: pre">v-model {{ text }}</div>
+    <div style="white-space: pre">label {{ label }}</div>
+
     <div>
       <!-- <vue-menu :menu="menu" v-model="value" :label.sync="label"></vue-menu> -->
     </div>
@@ -81,8 +81,8 @@ export default {
     return {
       value: [],
       label: null,
-      menu: s,
-      text: "",
+      menu: [],
+      text: "<{{workflow.parameters.workflow-workspace-path}}>",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
@@ -131,7 +131,11 @@ export default {
       return true;
     }
   },
-  mounted() {}
+  mounted() {
+    setTimeout(() => {
+      this.menu = s;
+    }, 1);
+  }
 };
 </script>
 
