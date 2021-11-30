@@ -7,7 +7,7 @@ let externals = env
   : undefined;
 module.exports = {
   lintOnSave: false,
-  productionSourceMap: false,
+  productionSourceMap: true,
   configureWebpack: {
     externals,
     optimization: {

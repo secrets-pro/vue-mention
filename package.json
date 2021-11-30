@@ -18,7 +18,7 @@
   "module": "dist/vue-mention.common.js",
   "unpkg": "dist/vue-mention.common.js",
   "dependencies": {
-    "@secrets/vue-menu": "0.0.8",
+    "@secrets/vue-menu": "0.0.10",
     "vue": "^2.6.12"
   },
   "keywords": [

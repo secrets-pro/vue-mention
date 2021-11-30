@@ -9,6 +9,7 @@
           v-show="currentList.length"
           :placement="pos.className"
           :menu="currentList"
+          ref="menu"
           @on-click="chooseMenu"
         ></vue-menu>
         <div
@@ -66,6 +67,9 @@ export default {
     }
   },
   methods: {
+    triggerHover(indexs) {
+      this.$refs.menu.triggerHover(indexs);
+    },
     chooseMenu(...items) {
       this.$emit("on-select", ...items);
     },

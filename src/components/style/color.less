@@ -15,9 +15,14 @@
 .sm-menu .chid-nav > li + li > div {
   word-break: keep-all;
 }
-.sm-menu .chid-nav > li:hover > div > div.chid-nav-wrap {
-  top: 0;
-  height: 100%;
+.sm-menu .chid-nav > li {
+  &:hover,
+  &.hover {
+    & > div > div.chid-nav-wrap {
+      top: 0;
+      height: 100%;
+    }
+  }
 }
 .sm-menu .chid-nav > li > div > a {
   line-height: normal;
@@ -26,9 +31,12 @@
   color: inherit;
   background: #fff;
 }
-.sm-menu .chid-nav > li:hover {
-  color: @primary-color !important;
-  background-color: #f5f6fc !important;
+.sm-menu .chid-nav > li {
+  &:hover,
+  &.hover {
+    color: @primary-color !important;
+    background-color: #f5f6fc !important;
+  }
 }
 .mention-editor {
   font-size: @font-size !important;

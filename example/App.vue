@@ -9,6 +9,7 @@
       custom-border-left-chart="<"
       custom-border-chart=">"
       :options="config"
+      clearNotMatched
       :beforeSelect="beforeSelect"
     >
     </vue-mention>
@@ -82,7 +83,7 @@ export default {
       value: [],
       label: null,
       menu: [],
-      text: "<{{workflow.parameters.workflow-workspace-path}}>",
+      text: "<{{workflow.parameters.workflow-workspace-path1}}>",
       members1: ["Cyber Fei", "mxsg.com", "小明"],
       members2: [
         {
