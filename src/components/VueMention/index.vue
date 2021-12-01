@@ -213,8 +213,11 @@ export default {
         return;
       }
       this.showFlag = false;
-      this.keyboards = [];
-      this.$refs.list.triggerHover([]);
+      if (this.keyboards.length) {
+        this.keyboards = [];
+        this.$refs.list.triggerHover([]);
+      }
+
       this.keyWord += "";
     },
     hanldeKeyOptions(key) {
