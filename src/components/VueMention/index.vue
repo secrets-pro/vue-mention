@@ -379,8 +379,8 @@ export default {
 
       this.currentLabel = label;
     },
-    currentLabel(n) {
-      if (n && n != this.customChar) {
+    currentLabel(n, o) {
+      if ((n || (o && !n)) && n != this.customChar) {
         this.changeValue();
       }
     }
