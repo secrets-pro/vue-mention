@@ -1,7 +1,6 @@
 <template>
   <div :class="`${prefix}-panel`">
     <textarea
-      style="resize: none;"
       :class="`${prefix}-editor`"
       spellcheck="false"
       v-model="currentLabel"

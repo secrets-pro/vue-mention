@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <vue-mention
-      v-model="text"
-      :label.sync="label"
-      :list="menu"
-      value-key="text"
-      custom-char="@"
-      custom-border-left-chart="<"
-      custom-border-chart=">"
-      :options="config"
-      clearNotMatched
-      :beforeSelect="beforeSelect"
-    >
-    </vue-mention>
+    <div style="padding: 24px;max-width: 800px;">
+      <textarea name="xxx" id="" cols="30" rows="10"></textarea>
+      <vue-mention
+        v-model="text"
+        :label.sync="label"
+        :list="menu"
+        value-key="text"
+        custom-char="@"
+        custom-border-left-chart="<"
+        custom-border-chart=">"
+        :options="config"
+        clearNotMatched
+        :beforeSelect="beforeSelect"
+      >
+      </vue-mention>
+    </div>
     <h3>内容</h3>
     <div style="white-space: pre">v-model {{ text }}</div>
     <div style="white-space: pre">label {{ label }}</div>
