@@ -366,6 +366,12 @@ export default {
   watch: {
     value(val) {
       this.currentValue = val;
+      this.currentLabel = transationLabel(
+        this.currentValue,
+        this.list,
+        this.customBorderLeftChart,
+        this.customBorderChart
+      );
     },
     // 当列表有变化 需要重新渲染一次
     list(n) {
