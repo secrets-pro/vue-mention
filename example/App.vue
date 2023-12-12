@@ -2,6 +2,7 @@
   <div id="app">
     <div style="padding: 24px;max-width: 800px;">
       <textarea name="xxx" id="" cols="30" rows="10"></textarea>
+      <div @click="changeModel">点击测试改变v-model的值</div>
       <vue-mention
         v-model="text"
         :label.sync="label"
@@ -133,6 +134,9 @@ export default {
     beforeSelect(v, l) {
       console.log(v, l);
       return true;
+    },
+    changeModel() {
+      this.text = "<{{workflow.parameters.wf-workspace}}>/app1";
     }
   },
   mounted() {
